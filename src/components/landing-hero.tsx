@@ -25,7 +25,7 @@ export function LandingHero() {
             </Button>
           </div>
           <Image
-            src="https://placehold.co/650x650.png"
+            src="/models/mainImage.png"
             alt="LEGO SPIKE Prime Robot"
             width={650}
             height={650}

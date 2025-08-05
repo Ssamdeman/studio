@@ -13,10 +13,10 @@ import { useState } from 'react';
 export function HubNavigation() {
   // Zero Phase 0 Dummy checklist items - you'll replace these
   const [checklistItems, setChecklistItems] = useState([
-    { id: 1, text: "Read safety guidelines", completed: false },
-    { id: 2, text: "Prepare workspace", completed: false },
-    { id: 3, text: "Download required app", completed: false },
-    { id: 4, text: "Review building basics", completed: false },
+    { id: 1, text: "Login into CFIC Account in the Laptop [Not a Guess Account]", completed: false },
+    { id: 2, text: "Ensure all computers are fully charged and updated", completed: false },
+    { id: 3, text: "Ensure LEGO Education SPIKE app is installed", completed: false },
+    { id: 4, text: "Ensure all LEGO modules are successfully connected to the Education SPIKE app", completed: false },
   ]);
 
   //Handler for the zero phase check list 
@@ -36,14 +36,14 @@ export function HubNavigation() {
   return (
     <div className="max-w-4xl mx-auto space-y-12">
       <div className="text-center">
-        <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl">Welcome to LEGO Building & Coding</h1>
+        <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl">Welcome to <strong className="font-semibold text-red-500" > LEGO </strong> Building & Coding</h1>
         <p className="mt-4 text-muted-foreground md:text-xl">
         The LEGO® Education SPIKE™ Prime Set, combines colorful LEGO building elements, easy-to-use hardware, and an intuitive drag-and-drop coding language based on Scratch. 
         Students will be engaged through playful learning activities to think critically and solve complex problems, regardless of their learning level. Participants will build, upgrade, and code software for their own LEGO vehicle, and will compete against each other’s vehicles in an obstacle course.
         Participants will also have the option to explore coding with Python.
         </p>
         <p className="mt-4 text-muted-foreground md:text-xl">
-        This guide outlines and provides details on what participants and their guardians can expect throughout the day. The day will be split into three phases: 1) Vehicle building, 2) Code & Challenge  3) Obstacle course race.
+        This guide outlines and provides details on what participants and their guardians can expect throughout the day. The day will be split into three phases: 1) Vehicle building, 2) Code and challenges  3) Obstacle course race.
         </p>
       </div>
 
@@ -55,7 +55,7 @@ export function HubNavigation() {
               <BookOpen className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <CardTitle className="text-xl"> Preperation(Instructor Only)</CardTitle>
+              <CardTitle className="text-xl"> Preperation (Instructor Only)</CardTitle>
               <CardDescription>Complete these steps before building.</CardDescription>
             </div>
           </CardHeader>
@@ -139,7 +139,7 @@ export function HubNavigation() {
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
                     <Link 
-                      href="/inventory" 
+                      href="https://assets.education.lego.com/v3/assets/blt293eea581807678a/blt28cad37f1f002fd3/5f8801b982eaa522ca601c89/le_spike_prime_element_overview.pdf?locale=en-us" 
                       className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                     >
                       <div className="flex items-center justify-between">
@@ -187,7 +187,7 @@ export function HubNavigation() {
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
                     <Link 
-                      href="/build" 
+                      href="https://assets.education.lego.com/v3/assets/blt293eea581807678a/blte58422fa7d508a60/5f8802b882eaa522ca601c9f/driving-base-bi-pdf-book1of1.pdf?locale=en-us" 
                       className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                     >
                       <div className="flex items-center justify-between">
@@ -226,8 +226,15 @@ export function HubNavigation() {
                     <Wrench className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-semibold text-left">Phase 2. Code and Challenge</h2>
-                  <p className="text-sm text-muted-foreground text-left">Learn coding and take on exciting challenges.</p>
+                  <h2 className="text-xl font-semibold text-left">Phase 2. Code and challenges</h2>
+                  <p className="text-sm text-muted-foreground text-left">
+                  The Challenge Ground is an interactive space where students learn how robots work through hands-on design and coding. 
+                  Each challenge introduces a new sensor, blending hardware with logic. 
+                  Students choose Python or Word Blocks, building both coding and robotics skills.
+                  </p>
+                  <p className="text-sm text-muted-foreground text-left mt-2">
+                    <strong>End State:</strong> Students emerge better prepared and more competitive for the main competition.
+                  </p>
                 </div>
               </div>
             </AccordionTrigger>
@@ -255,7 +262,7 @@ export function HubNavigation() {
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
                     <Link 
-                      href="/coding-tutorial" 
+                      href="https://primelessons.org/en/ProgrammingLessons/SP3BlockGuide.pdf" 
                       className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                     >
                       <div className="flex items-center justify-between">
@@ -271,14 +278,44 @@ export function HubNavigation() {
                             </div>
                           </div>
                           <div>
-                            <p className="font-medium">Start Coding Tutorial</p>
-                            <p className="text-sm text-muted-foreground">Learn basic programming concepts</p>
+                            <p className="font-medium">Start Coding Tutorial - Word Blocks</p>
+                            <p className="text-sm text-muted-foreground">Learn basic word blocks concepts</p>
                           </div>
                         </div>
                         <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                       </div>
                     </Link>
                   </AccordionContent>
+                  
+
+                  <AccordionContent className="px-6 pb-4">
+                    <Link 
+                      href="https://primelessons.org/en/ProgrammingLessons/SP3BlockGuide.pdf" 
+                      className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="relative">
+                            <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
+                              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-2">
+                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
+                              </div>
+                              <div className="w-8 h-8 bg-primary/80 rounded flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-2">
+                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <p className="font-medium">Start Coding Tutorial - Python Coding</p>
+                            <p className="text-sm text-muted-foreground">Learn basic python programming concepts for the robot</p>
+                          </div>
+                        </div>
+                        <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                      </div>
+                    </Link>
+                  </AccordionContent>
+
+
                 </AccordionItem>
 
                 {/* Sub-Accordion 2: Challenge 1 */}
@@ -296,16 +333,43 @@ export function HubNavigation() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-left">Challenge 1</h3>
+                        <h3 className="text-lg font-medium text-left">Challenge 1 - A Robot's First Steps</h3>
                         <p className="text-sm text-muted-foreground text-left">Basic movement challenge</p>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    <div className="p-4 rounded-lg bg-muted/50">
-                      <p className="text-sm text-muted-foreground">
-                        Your first challenge is to program your robot to move forward, turn left, and stop. This challenge will test your understanding of basic motor controls and sequential programming. You'll need to use the movement blocks to create a simple path for your robot to follow.
-                      </p>
+                    <div className="p-4 rounded-lg bg-muted/50 space-y-4">
+                      {/* Main Description */}
+                      <div className="flex items-start space-x-3">
+                        <p className="text-sm text-muted-foreground">
+                          Challengers will program their robot to follow a guided line to guide their programming efforts. This will allow challengers to understand the basic movement capabilities of their robot: turn left, turn right, forward.
+                        </p>
+                      </div>
+
+                      {/* Difficulty Levels */}
+                      <div className="ml-6 space-y-3">
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">APPRENTICE</span> ~ Trace a Box pattern on the obstacle surface
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">TECHNICIAN</span> ~ Trace a Triangle pattern on the obstacle surface
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">MASTER</span> ~ Trace a Figure 8 pattern on the obstacle surface
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </AccordionContent>
                 </AccordionItem>
@@ -325,21 +389,46 @@ export function HubNavigation() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-left">Challenge 2</h3>
-                        <p className="text-sm text-muted-foreground text-left">Sensor-based navigation</p>
+                        <h3 className="text-lg font-medium text-left">Challenge 2 - Colors are Hard</h3>
+                        <p className="text-sm text-muted-foreground text-left">Color sensor navigation</p>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    <div className="p-4 rounded-lg bg-muted/50">
+                    <div className="p-4 rounded-lg bg-muted/50 space-y-4">
+                      {/* Main Description */}
                       <p className="text-sm text-muted-foreground">
-                        In this challenge, you'll program your robot to use sensors to detect obstacles and navigate around them. This introduces you to conditional programming and sensor integration. Your robot should move forward until it detects an obstacle, then turn and continue moving.
+                        Challengers will design their robot to use the color sensor. When their robot comes into contact with a certain color, it performs a certain movement (stop, turn left, turn right, forward, reverse, spin) which sets their robot up to come into contact with the next color.
                       </p>
+
+                      {/* Difficulty Levels */}
+                      <div className="ml-6 space-y-3">
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">APPRENTICE</span> ~ Navigate 2 Color Sensor Obstacles
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">TECHNICIAN</span> ~ Navigate 3 Color Sensor Obstacles
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">MASTER</span> ~ Navigate ALL Color Sensor Obstacles
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </AccordionContent>
                 </AccordionItem>
 
-                {/* Sub-Accordion 4: Challenge 3 */}
+                 {/* Sub-Accordion 4: Challenge 3 */}
                 <AccordionItem value="challenge3" className="border-none">
                   <AccordionTrigger className="px-6 py-4 hover:no-underline">
                     <div className="flex items-center gap-3">
@@ -354,16 +443,95 @@ export function HubNavigation() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-left">Challenge 3</h3>
-                        <p className="text-sm text-muted-foreground text-left">Advanced programming task</p>
+                        <h3 className="text-lg font-medium text-left">Challenge 3 - I See You!</h3>
+                        <p className="text-sm text-muted-foreground text-left">Distance sensor detection</p>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    <div className="p-4 rounded-lg bg-muted/50">
+                    <div className="p-4 rounded-lg bg-muted/50 space-y-4">
+                      {/* Main Description */}
                       <p className="text-sm text-muted-foreground">
-                        The final challenge combines everything you've learned. Program your robot to complete a complex obstacle course using loops, conditions, and multiple sensors. This challenge will prepare you for competition-level programming and advanced robotics concepts.
+                        Challengers will come into contact with tall objects they will need to navigate around either dictated by what that obstacle says (example "stop 5cm before this object") or challengers discretion.
                       </p>
+
+                      {/* Difficulty Levels */}
+                      <div className="ml-6 space-y-3">
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">APPRENTICE</span> ~ Navigate 1 Distance Sensor Obstacles
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">TECHNICIAN</span> ~ Navigate 3 Distance Sensor Obstacles
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">MASTER</span> ~ Navigate ALL Distance Sensor Obstacles
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Sub-Accordion 5: Challenge 4 */}
+                <AccordionItem value="challenge4" className="border-none">
+                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <div className="relative group">
+                        <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
+                          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-1">
+                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                          </div>
+                          <div className="w-6 h-6 bg-primary/80 rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-1">
+                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-medium text-left">Challenge 4 - Ouch! Did I just hit something?</h3>
+                        <p className="text-sm text-muted-foreground text-left">Force sensor interaction</p>
+                      </div>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4">
+                    <div className="p-4 rounded-lg bg-muted/50 space-y-4">
+                      {/* Main Description */}
+                      <p className="text-sm text-muted-foreground">
+                        This final challenge of the force sensor will enable challengers to gain familiarization when the sensor is "pressed, hard-pressed, released, or pressure has changed". There will be an obstacle for each action as stated above. Challengers will need to read what the obstacle is requiring them to do with their force sensor to be successful.
+                      </p>
+
+                      {/* Difficulty Levels */}
+                      <div className="ml-6 space-y-3">
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">APPRENTICE</span> ~ Navigate 2 Force Sensor Obstacles
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">TECHNICIAN</span> ~ Navigate 3 Force Sensor Obstacles
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start space-x-3">
+                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">MASTER</span> ~ Navigate ALL Force Sensor Obstacles
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </AccordionContent>
                 </AccordionItem>
