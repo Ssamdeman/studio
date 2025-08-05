@@ -8,7 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { ComponentList } from '@/components/component-list';
 import { ListChecks, Wrench, ArrowRight, CheckCircle2, BookOpen } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; 
 
 export function HubNavigation() {
   // Zero Phase 0 Dummy checklist items - you'll replace these
@@ -19,7 +19,43 @@ export function HubNavigation() {
     { id: 4, text: "Ensure all LEGO modules are successfully connected to the Education SPIKE app", completed: false },
   ]);
 
-  //Handler for the zero phase check list 
+  // Carousel state and images
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const carouselImages = [
+    {
+      src: "/models/spikeprime.jpg",
+      //alt: "LEGO SPIKE Prime Set with colorful building elements"
+    },
+    {
+      src: "/models/p-1-90328175-lego-spike.jpg",
+      //alt: "Students coding and building with LEGO robotics"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=800&h=400&fit=crop",
+     // alt: "LEGO vehicle obstacle course setup"
+    },
+    {
+      src: "/models/9nfqz9rdnd2q-featured.webp",
+      //alt: "Interactive drag-and-drop coding interface"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=400&fit=crop",
+     // alt: "Students collaborating on LEGO robotics project"
+    }
+  ];
+
+  // Auto-advance carousel every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % carouselImages.length
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
+
+  // Handler for the zero phase check list (FIXED: Only defined once)
   const handleChecklistChange = (id: number, checked: boolean) => {
     setChecklistItems(prev => 
       prev.map(item => 
@@ -33,8 +69,57 @@ export function HubNavigation() {
   const progressPercentage = (completedCount / totalCount) * 100;
   const allCompleted = completedCount === totalCount;
 
+
+
   return (
+
     <div className="max-w-4xl mx-auto space-y-12">
+
+         {/* Image Carousel - Full Width, Top Aligned */}
+      <div className="relative -mt-12 -mx-4 sm:-mx-6 lg:-mx-8 mb-8">
+        <div className="relative h-64 sm:h-80 overflow-hidden shadow-xl">
+          {carouselImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{
+                backgroundImage: `url(${image.src})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+              aria-hidden={index !== currentImageIndex}
+            >
+              <div className="absolute inset-0 bg-black/20" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <p className="text-white text-sm font-medium drop-shadow-lg">
+                    {image.alt}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Carousel Indicators */}
+        <div className="flex justify-center mt-4 space-x-2">
+          {carouselImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                index === currentImageIndex
+                  ? 'bg-red-500'
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
       <div className="text-center">
         <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl">Welcome to <strong className="font-semibold text-red-500" > LEGO </strong> Building & Coding</h1>
         <p className="mt-4 text-muted-foreground md:text-xl">
@@ -54,10 +139,17 @@ export function HubNavigation() {
             <div className="p-3 bg-muted rounded-full">
               <BookOpen className="h-6 w-6 text-primary" />
             </div>
+            <div className="flex justify-between items-center">
             <div>
-              <CardTitle className="text-xl"> Preperation (Instructor Only)</CardTitle>
+              <CardTitle className="text-xl">Preperation (Instructor Only)</CardTitle>
               <CardDescription>Complete these steps before building.</CardDescription>
             </div>
+            <img 
+              src="/models/lego_teacher.png" 
+              alt="Preparation icon" 
+              className="w-25 h-20 rounded object-cover flex-shrink-1 ml-5"
+            />
+          </div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
             <div className="space-y-4">
@@ -109,10 +201,17 @@ export function HubNavigation() {
                 <div className="p-3 bg-muted rounded-full">
                     <ListChecks className="h-6 w-6 text-primary" />
                 </div>
-                <div>
-                  <h2 className="text-xl font-semibold text-left">Phase 1. Build your vehicle</h2>
-                  <p className="text-sm text-muted-foreground text-left">Check your components before you begin.</p>
-                </div>
+                <div className="flex justify-between items-center">
+                    <div>
+                      <h2 className="text-xl font-semibold text-left">Phase 1. Build your vehicle</h2>
+                      <p className="text-sm text-muted-foreground text-left">Check your components before you begin.</p>
+                    </div>
+                    <img 
+                      src="/models/Lego_car copy.jpg" 
+                      alt="Vehicle building icon" 
+                      className="w-25 h-20 rounded object-cover flex-shrink-0 ml-4"
+                    />
+                  </div>
               </div>
             </AccordionTrigger>
             <AccordionContent>
