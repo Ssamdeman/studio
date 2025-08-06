@@ -10,214 +10,285 @@ import { ComponentList } from '@/components/component-list';
 import { ListChecks, Wrench, ArrowRight, CheckCircle2, BookOpen, TrendingUpDown, Code} from 'lucide-react';
 import { Copy, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState, useEffect } from 'react'; 
+import { Trophy } from 'lucide-react'; 
 
 
-// // Component for Python
-// function PythonTutorialExpandable() {
-//   const [isExpanded, setIsExpanded] = useState(false);
-//   const [copied, setCopied] = useState(false);
 
-//   const handleCopy = async () => {
-//     try {
-//       await navigator.clipboard.writeText(pythonStarterCode);
-//       setCopied(true);
-//       setTimeout(() => setCopied(false), 2000);
-//     } catch (err) {
-//       console.error('Failed to copy text: ', err);
-//     }
-//   }
-// };
-
-// //python code shell. 
-// const pythonStarterCode = `# LEGO SPIKE Prime Robot - Python Starter Code
-// import motor
-// import motor_pair
-// from hub import port, sound, light_matrix, light, button, motion_sensor, port
-// import time
-// import runloop
-// import color
-// import color_sensor
-// import force_sensor
-// import distance_sensor
-// import color_matrix
-// import device
+//python code shell. 
+const pythonStarterCode = `# LEGO SPIKE Prime Robot - Python Starter Code
+import motor
+import motor_pair
+from hub import port, sound, light_matrix, light, button, motion_sensor, port
+import time
+import runloop
+import color
+import color_sensor
+import force_sensor
+import distance_sensor
+import color_matrix
+import device
 
 
-// # Constants
-// force_threshold = 50
-// speed = 720
-// degrees = 360
+# Constants
+force_threshold = 50
+speed = 720
+degrees = 360
 
 
-// # Simplified Movement Function
-// def move_motors(a_speed, b_speed, value):
-//     motor.run(port.A, a_speed)
-//     motor.run(port.B, b_speed)
-//     time.sleep((value * degrees) / speed)
-//     motor.stop(port.A)
-//     motor.stop(port.B)
+# Simplified Movement Function
+def move_motors(a_speed, b_speed, value):
+    motor.run(port.A, a_speed)
+    motor.run(port.B, b_speed)
+    time.sleep((value * degrees) / speed)
+    motor.stop(port.A)
+    motor.stop(port.B)
 
 
-// # Move Forward
-// def move_forward(value):
-//     move_motors(speed, speed, value)
+# Move Forward
+def move_forward(value):
+    move_motors(speed, speed, value)
 
 
-// # Move Backward
-// def move_backward(value):
-//     move_motors(-speed, -speed, value)
+# Move Backward
+def move_backward(value):
+    move_motors(-speed, -speed, value)
 
 
-// # Turn Left
-// def turn_left(value):
-//     move_motors(-speed, speed, value)
+# Turn Left
+def turn_left(value):
+    move_motors(-speed, speed, value)
 
 
-// # Turn Right
-// def turn_right(value):
-//     move_motors(speed, -speed, value)
+# Turn Right
+def turn_right(value):
+    move_motors(speed, -speed, value)
 
 
 
 
-// # Sensor Handlers
-// #_______ Button Sensor_______________________________
-// def Button():
-//     force = force_sensor.force(port.C)
-//     if force > force_threshold:
-//          # Add your code here:
-//         move_forward(1)
+# Sensor Handlers
+#_______ Button Sensor_______________________________
+def Button():
+    force = force_sensor.force(port.C)
+    if force > force_threshold:
+         # Add your code here:
+        move_forward(1)
 
 
-//     else:
-//          # Add your code here:
-//         motor.stop(port.A)
-//         motor.stop(port.B)
+    else:
+         # Add your code here:
+        motor.stop(port.A)
+        motor.stop(port.B)
 
 
 
 
 
 
-// #_______Color Sensor_______________________________
+#_______Color Sensor_______________________________
 
 
-// def check_color():
-//     detected_color = color_sensor.color(port.D)
-//     if detected_color == color.RED: # You can change the color or add more colors.
+def check_color():
+    detected_color = color_sensor.color(port.D)
+    if detected_color == color.RED: # You can change the color or add more colors.
        
-//          # Add your code here:
-//         move_forward(1)
+         # Add your code here:
+        move_forward(1)
 
 
-//     else:
-//         # Add your code here:
-//         motor.stop(port.A)
-//         motor.stop(port.B)
-
-
-
-
-// #_______ Distance Sensor_______________________________
-// def Distance(threshold_cm=10):
-//     distance_cm = distance_sensor.distance(port.E)
-//     if distance_cm < threshold_cm:
-//         motor.stop(port.A)
-//         motor.stop(port.B)
+    else:
+        # Add your code here:
+        motor.stop(port.A)
+        motor.stop(port.B)
 
 
 
 
-// #________________ Dummy functions to use all imports ___________________
-// def use_sound():
-//     sound.beep()
-
-
-// def use_light_matrix():
-//     light_matrix.show_image('HAPPY')
-
-
-// def use_light():
-//     light.on('blue')
-
-
-// def use_button():
-//     if button.pressed():
-//         print("Button pressed!")
-
-
-// def use_motion_sensor():
-//     angle = motion_sensor.tilt_angle()
-//     print(f"Tilt angle: {angle}")
-
-
-// def use_color_matrix():
-//     color_matrix.show([[color.RED]*5]*5)
-
-
-// def use_device():
-//     info = device.info()
-//     print("Device info:", info)
-
-
-// # ______________________________________________________
-
-
-// # _______________________Main Function___________________________________
-// async def main():
-//     motor_pair.pair(1, port.A, port.B)
+#_______ Distance Sensor_______________________________
+def Distance(threshold_cm=10):
+    distance_cm = distance_sensor.distance(port.E)
+    if distance_cm < threshold_cm:
+        motor.stop(port.A)
+        motor.stop(port.B)
 
 
 
 
-// # Add your code here:
+#________________ Dummy functions to use all imports ___________________
+def use_sound():
+    sound.beep()
 
 
-//     #Example:
-//     move_forward(1)
-//     await runloop.sleep_ms(1000) # 'await' tells the robot to wait before doing the next function
+def use_light_matrix():
+    light_matrix.show_image('HAPPY')
 
 
-//     move_backward(1)
-//     await runloop.sleep_ms(1000)
+def use_light():
+    light.on('blue')
 
 
-//     turn_left(1)
-//     await runloop.sleep_ms(1000)
+def use_button():
+    if button.pressed():
+        print("Button pressed!")
 
 
-//     turn_right(1)
-//     await runloop.sleep_ms(1000)
+def use_motion_sensor():
+    angle = motion_sensor.tilt_angle()
+    print(f"Tilt angle: {angle}")
 
 
-// # Call dummy usage functions here to make them 'used'
-//     use_sound()
-//     use_light_matrix()
-//     use_light()
-//     use_button()
-//     use_motion_sensor()
-//     use_color_matrix()
-//     use_device()
+def use_color_matrix():
+    color_matrix.show([[color.RED]*5]*5)
 
 
-// # Run loop for sensor checks.
-// # The "while true" method allows for a function to stay 'alive' during the running of the program.
-//     while True:
-//         Button()
-//         check_color()
-//         Distance()
-//         await runloop.sleep_ms(100)
-// #________________________________________ End of Main function ________________________________________________
+def use_device():
+    info = device.info()
+    print("Device info:", info)
+
+
+# ______________________________________________________
+
+
+# _______________________Main Function___________________________________
+async def main():
+    motor_pair.pair(1, port.A, port.B)
 
 
 
 
-// # Run the async main function using runloop
-// runloop.run(main)`;
+# Add your code here:
+
+
+    #Example:
+    move_forward(1)
+    await runloop.sleep_ms(1000) # 'await' tells the robot to wait before doing the next function
+
+
+    move_backward(1)
+    await runloop.sleep_ms(1000)
+
+
+    turn_left(1)
+    await runloop.sleep_ms(1000)
+
+
+    turn_right(1)
+    await runloop.sleep_ms(1000)
+
+
+# Call dummy usage functions here to make them 'used'
+    use_sound()
+    use_light_matrix()
+    use_light()
+    use_button()
+    use_motion_sensor()
+    use_color_matrix()
+    use_device()
+
+
+# Run loop for sensor checks.
+# The "while true" method allows for a function to stay 'alive' during the running of the program.
+    while True:
+        Button()
+        check_color()
+        Distance()
+        await runloop.sleep_ms(100)
+#________________________________________ End of Main function ________________________________________________
+
+
+
+
+# Run the async main function using runloop
+runloop.run(main)`;
+
+
+// PythonTutorialExpandable component - place this outside your HubNavigation component
+function PythonTutorialExpandable() {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(pythonStarterCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
+  return (
+    <>
+      {/* Clickable trigger */}
+      <div 
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group cursor-pointer"
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="relative h-14 w-10">
+                {/* Bottom LEGO brick (stationary) - Blue */}
+                <div className="absolute bottom-0 left-0 w-10 h-6 bg-pink-400 rounded border-2 border-pink-600">
+                  {/* Bottom brick studs */}
+                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                </div>
+                
+                {/* Top LEGO brick (animated) - Pink */}
+                <div className="absolute top-0 left-0 w-10 h-6 bg-blue-500 rounded border-2 border-blue-700 transition-transform duration-700 ease-in-out group-hover:translate-y-7">
+                  {/* Top brick studs */}
+                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p className="font-medium">Start Coding Tutorial - Python Coding</p>
+              <p className="text-sm text-muted-foreground">Learn basic Python programming concepts for the robot</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {isExpanded ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+          </div>
+        </div>
+      </div>
+
+      {/* Expandable code section */}
+      {isExpanded && (
+        <div className="mt-4 p-4 bg-gray-900 rounded-lg border border-gray-700">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-medium text-white">Python Starter Code</h3>
+            <button
+              onClick={handleCopy}
+              className="flex items-center gap-2 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200"
+            >
+              {copied ? (
+                <>
+                  <Check className="h-4 w-4" />
+                  Copied!
+                </>
+              ) : (
+                <>
+                  <Copy className="h-4 w-4" />
+                  Copy Code
+                </>
+              )}
+            </button>
+          </div>
+          <pre className="text-sm text-gray-300 overflow-x-auto whitespace-pre-wrap">
+            <code>{pythonStarterCode}</code>
+          </pre>
+        </div>
+      )}
+    </>
+  );
+}
 
 
 
  
+
 
 export function HubNavigation() {
   // Zero Phase 0 Dummy checklist items - you'll replace these
@@ -279,6 +350,25 @@ export function HubNavigation() {
   const totalCount = checklistItems.length;
   const progressPercentage = (completedCount / totalCount) * 100;
   const allCompleted = completedCount === totalCount;
+
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+
+
+  //python shell. 
+  // Add these state variables inside your HubNavigation component
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(pythonStarterCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
 
   return (
 
@@ -456,6 +546,8 @@ export function HubNavigation() {
                     <AccordionContent className="px-6 pb-4">
                       <Link 
                         href="https://assets.education.lego.com/v3/assets/blt293eea581807678a/blt28cad37f1f002fd3/5f8801b982eaa522ca601c89/le_spike_prime_element_overview.pdf?locale=en-us" 
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                       >
                         <div className="flex items-center justify-between">
@@ -519,6 +611,8 @@ export function HubNavigation() {
                     <AccordionContent className="px-6 pb-4">
                       <Link 
                         href="https://assets.education.lego.com/v3/assets/blt293eea581807678a/blte58422fa7d508a60/5f8802b882eaa522ca601c9f/driving-base-bi-pdf-book1of1.pdf?locale=en-us" 
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                       >
                         <div className="flex items-center justify-between">
@@ -608,6 +702,8 @@ export function HubNavigation() {
                   <AccordionContent className="px-6 pb-4">
                     <Link 
                       href="https://primelessons.org/en/ProgrammingLessons/SP3BlockGuide.pdf" 
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                     >
                       <div className="flex items-center justify-between">
@@ -644,39 +740,66 @@ export function HubNavigation() {
                   
 
                   <AccordionContent className="px-6 pb-4">
-                    <Link 
-                      href="/models/LEGO Robotics Event Plan.pdf" 
-                      className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="relative">
-                            <div className="relative h-14 w-10">
-                             {/* Bottom LEGO brick (stationary) - Blue */}
-                                <div className="absolute bottom-0 left-0 w-10 h-6 bg-pink-400 rounded border-2 border-pink-600">
-                                  {/* Bottom brick studs */}
-                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
-                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                      <div 
+                        onClick={() => setIsExpanded(!isExpanded)}
+                        className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group cursor-pointer"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="relative">
+                              <div className="relative h-14 w-10">
+                              {/* Bottom LEGO brick (stationary) - Blue */}
+                                  <div className="absolute bottom-0 left-0 w-10 h-6 bg-pink-400 rounded border-2 border-pink-600">
+                                    {/* Bottom brick studs */}
+                                    <div className="absolute -top-1 left-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                    <div className="absolute -top-1 right-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                  </div>
+                                  
+                                  {/* Top LEGO brick (animated) - Pink */}
+                                  <div className="absolute top-0 left-0 w-10 h-6 bg-blue-500 rounded border-2 border-blue-700 transition-transform duration-700 ease-in-out group-hover:translate-y-7">
+                                    {/* Top brick studs */}
+                                    <div className="absolute -top-1 left-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                                    <div className="absolute -top-1 right-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
                                 </div>
-                                
-                                {/* Top LEGO brick (animated) - Pink */}
-                                <div className="absolute top-0 left-0 w-10 h-6 bg-blue-500 rounded border-2 border-blue-700 transition-transform duration-700 ease-in-out group-hover:translate-y-7">
-                                  {/* Top brick studs */}
-                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
-                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
                               </div>
                             </div>
+                            <div>
+                              <p className="font-medium">Start Coding Tutorial - Python Coding</p>
+                              <p className="text-sm text-muted-foreground">Learn basic Python programming concepts for the robot</p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-medium">Start Coding Tutorial - Python Coding</p>
-                            <p className="text-sm text-muted-foreground">Learn basic Python programming concepts for the robot</p>
-                          </div>
+                          {isExpanded ? <ChevronUp className="h-5 w-5 transition-transform duration-200" /> : <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />}
                         </div>
-                        <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                       </div>
-                    </Link>
 
-                  </AccordionContent>
+                      {/* Expandable code section */}
+                      {isExpanded && (
+                        <div className="mt-4 p-4 bg-gray-900 rounded-lg border border-gray-700">
+                          <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-lg font-medium text-white">Python Starter Code</h3>
+                            <button
+                              onClick={handleCopy}
+                              className="flex items-center gap-2 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200"
+                            >
+                              {copied ? (
+                                <>
+                                  <Check className="h-4 w-4" />
+                                  Copied!
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-4 w-4" />
+                                  Copy Code
+                                </>
+                              )}
+                            </button>
+                          </div>
+                          <pre className="text-sm text-gray-300 overflow-x-auto whitespace-pre-wrap">
+                            <code>{pythonStarterCode}</code>
+                          </pre>
+                        </div>
+                      )}
+                    </AccordionContent>
 
 
                 </AccordionItem>
@@ -932,33 +1055,125 @@ export function HubNavigation() {
           </AccordionItem>
         </Accordion>
 
-        {/* Phase 3 Card */}
-       <Card className="shadow-lg">
-          <CardHeader className="flex flex-row items-center gap-4 p-6">
-            <div className="p-3 bg-muted rounded-full">
-              <TrendingUpDown className="h-6 w-6 text-primary" />
-            </div>
-            <div className="flex-1">
-              <CardTitle className="text-xl">Phase 3. Obstacle Course Race.</CardTitle>
-              <CardDescription>Follow the interactive guide to build your robot.</CardDescription>
-            </div>
-            <img 
-              src="/models/mage_6720689.png" 
-              alt="Obstacle course race icon" 
-              className="w-[15%] h-[9%] rounded object-cover flex-shrink-0"
-            />
-          </CardHeader>
-          <CardContent className="p-6 pt-0">
-            <p className="mb-4 text-muted-foreground">
-              Ready to bring your creation to life? Jump into our step-by-step interactive guide.
-            </p>
-            <Link href="/guide">
+       {/* Phase 3 Accordion */}
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="phase3" className="border rounded-lg shadow-lg">
+            <AccordionTrigger className="p-6 hover:no-underline">
+              <div className="flex items-center gap-4 w-full">
+                <div className="p-3 bg-muted rounded-full">
+                  <TrendingUpDown className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold text-left">Phase 3. Obstacle Course Race.</h2>
+                  <p className="text-sm text-muted-foreground text-left">Follow the interactive guide to build your robot.</p>
+                </div>
+                <img 
+                  src="/models/mage_6720689.png" 
+                  alt="Obstacle course race icon" 
+                  className="w-[17%] h-[18%]rounded object-cover flex-shrink-0"
+                />
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-6">
+              <p className="mb-4 text-muted-foreground">
+                Ready to bring your creation to life? Jump into our step-by-step interactive guide.
+              </p>
+              
               <img
                 src="/models/OC_F_V.2.jpeg"
                 alt="Go to Build & Code Guide"
                 className="w-full h-auto cursor-pointer"
               />
-            </Link>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+
+       {/* Phase 4 Card */}
+        <Card className="shadow-lg">
+          <CardHeader className="flex flex-row items-center gap-4 p-6">
+            <div className="p-3 bg-muted rounded-full">
+              <Trophy className="h-6 w-6 text-primary" />
+            </div>
+            <div className="flex-1">
+              <CardTitle className="text-xl">Phase 4. Awards and Celebration.</CardTitle>
+              <CardDescription>Celebrate your achievements and showcase your robot.</CardDescription>
+            </div>
+            <img 
+              src="/models/-free.png" 
+              alt="Awards and celebration icon" 
+              className="w-[15%] h-16 rounded object-cover flex-shrink-0"
+            />
+          </CardHeader>
+          <CardContent className="p-6 pt-0">
+            <p className="mb-6 text-muted-foreground">
+              Congratulations on completing all challenges! Time to celebrate your accomplishments and show off your amazing robot creations.
+            </p>
+            
+            <div className="space-y-8">
+              {/* Winners Podium Section */}
+              <div className="p-6 rounded-lg bg-yellow-50 border-2 border-yellow-300 shadow-md">
+                <div className="flex items-center gap-3 mb-4 justify-center">
+                  <Trophy className="h-6 w-6 text-yellow-600" />
+                  <span className="font-bold text-lg text-yellow-800">Competition Winners!</span>
+                  <Trophy className="h-6 w-6 text-yellow-600" />
+                </div>
+                
+                <div className="flex justify-center items-end gap-8">
+                  {/* 2nd Place */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mb-2 shadow-lg">
+                      <span className="text-2xl">🥈</span>
+                    </div>
+                    <span className="font-semibold text-gray-700">2nd Place</span>
+                  </div>
+                  
+                  {/* 1st Place */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mb-2 shadow-lg border-2 border-yellow-500">
+                      <span className="text-3xl">🥇</span>
+                    </div>
+                    <span className="font-bold text-yellow-800 text-lg">1st Place</span>
+                  </div>
+                  
+                  {/* 3rd Place */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center mb-2 shadow-lg">
+                      <span className="text-2xl">🥉</span>
+                    </div>
+                    <span className="font-semibold text-amber-700">3rd Place</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Award Categories Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <h4 className="font-medium mb-1">🏆 Top Performer</h4>
+                  <p className="text-sm text-muted-foreground">Best overall execution across all phases</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <h4 className="font-medium mb-1">🔁 Fewest Attempts</h4>
+                  <p className="text-sm text-muted-foreground">Successfully completed all tasks with the least number of tries</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <h4 className="font-medium mb-1">🎨 Wackiest Design</h4>
+                  <p className="text-sm text-muted-foreground">Most creative and visually unique robot design</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <h4 className="font-medium mb-1">🧠 Future Developer</h4>
+                  <p className="text-sm text-muted-foreground">Simplest and most efficient script<br/>(Least code or data used to achieve functionality)</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <h4 className="font-medium mb-1">⚡ Speed Demon</h4>
+                  <p className="text-sm text-muted-foreground">Fastest robot to complete the obstacle course</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <h4 className="font-medium mb-1">🛠️ Best Engineering</h4>
+                  <p className="text-sm text-muted-foreground">Most mechanically sound and well-built robot<br/>(Emphasis on structural stability, clever mechanics, or modularity)</p>
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
