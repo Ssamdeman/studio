@@ -7,7 +7,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { ComponentList } from '@/components/component-list';
-import { ListChecks, Wrench, ArrowRight, CheckCircle2, BookOpen } from 'lucide-react';
+import { ListChecks, Wrench, ArrowRight, CheckCircle2, BookOpen, TrendingUpDown, Code} from 'lucide-react';
+import { Copy, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState, useEffect } from 'react'; 
 
 export function HubNavigation() {
@@ -25,19 +26,21 @@ export function HubNavigation() {
     {
       src: "/models/spikeprime.jpg",
       //alt: "LEGO SPIKE Prime Set with colorful building elements"
+      position: "center 10%" // shifts this image up
     },
     {
       src: "/models/p-1-90328175-lego-spike.jpg",
       //alt: "Students coding and building with LEGO robotics"
+      position: "center 10%" // shifts this image up
     },
     {
       src: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=800&h=400&fit=crop",
      // alt: "LEGO vehicle obstacle course setup"
     },
-    {
-      src: "/models/9nfqz9rdnd2q-featured.webp",
-      //alt: "Interactive drag-and-drop coding interface"
-    },
+    // {
+    //   //src: "/models/9nfqz9rdnd2q-featured.webp",
+    //   //alt: "Interactive drag-and-drop coding interface"
+    // },
     {
       src: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=400&fit=crop",
      // alt: "Students collaborating on LEGO robotics project"
@@ -69,13 +72,215 @@ export function HubNavigation() {
   const progressPercentage = (completedCount / totalCount) * 100;
   const allCompleted = completedCount === totalCount;
 
+//python code shell. 
+const pythonStarterCode = `# LEGO SPIKE Prime Robot - Python Starter Code
+import motor
+import motor_pair
+from hub import port, sound, light_matrix, light, button, motion_sensor, port
+import time
+import runloop
+import color
+import color_sensor
+import force_sensor
+import distance_sensor
+import color_matrix
+import device
+
+
+# Constants
+force_threshold = 50
+speed = 720
+degrees = 360
+
+
+# Simplified Movement Function
+def move_motors(a_speed, b_speed, value):
+    motor.run(port.A, a_speed)
+    motor.run(port.B, b_speed)
+    time.sleep((value * degrees) / speed)
+    motor.stop(port.A)
+    motor.stop(port.B)
+
+
+# Move Forward
+def move_forward(value):
+    move_motors(speed, speed, value)
+
+
+# Move Backward
+def move_backward(value):
+    move_motors(-speed, -speed, value)
+
+
+# Turn Left
+def turn_left(value):
+    move_motors(-speed, speed, value)
+
+
+# Turn Right
+def turn_right(value):
+    move_motors(speed, -speed, value)
+
+
+
+
+# Sensor Handlers
+#_______ Button Sensor_______________________________
+def Button():
+    force = force_sensor.force(port.C)
+    if force > force_threshold:
+         # Add your code here:
+        move_forward(1)
+
+
+    else:
+         # Add your code here:
+        motor.stop(port.A)
+        motor.stop(port.B)
+
+
+
+
+
+
+#_______Color Sensor_______________________________
+
+
+def check_color():
+    detected_color = color_sensor.color(port.D)
+    if detected_color == color.RED: # You can change the color or add more colors.
+       
+         # Add your code here:
+        move_forward(1)
+
+
+    else:
+        # Add your code here:
+        motor.stop(port.A)
+        motor.stop(port.B)
+
+
+
+
+#_______ Distance Sensor_______________________________
+def Distance(threshold_cm=10):
+    distance_cm = distance_sensor.distance(port.E)
+    if distance_cm < threshold_cm:
+        motor.stop(port.A)
+        motor.stop(port.B)
+
+
+
+
+#________________ Dummy functions to use all imports ___________________
+def use_sound():
+    sound.beep()
+
+
+def use_light_matrix():
+    light_matrix.show_image('HAPPY')
+
+
+def use_light():
+    light.on('blue')
+
+
+def use_button():
+    if button.pressed():
+        print("Button pressed!")
+
+
+def use_motion_sensor():
+    angle = motion_sensor.tilt_angle()
+    print(f"Tilt angle: {angle}")
+
+
+def use_color_matrix():
+    color_matrix.show([[color.RED]*5]*5)
+
+
+def use_device():
+    info = device.info()
+    print("Device info:", info)
+
+
+# ______________________________________________________
+
+
+# _______________________Main Function___________________________________
+async def main():
+    motor_pair.pair(1, port.A, port.B)
+
+
+
+
+# Add your code here:
+
+
+    #Example:
+    move_forward(1)
+    await runloop.sleep_ms(1000) # 'await' tells the robot to wait before doing the next function
+
+
+    move_backward(1)
+    await runloop.sleep_ms(1000)
+
+
+    turn_left(1)
+    await runloop.sleep_ms(1000)
+
+
+    turn_right(1)
+    await runloop.sleep_ms(1000)
+
+
+# Call dummy usage functions here to make them 'used'
+    use_sound()
+    use_light_matrix()
+    use_light()
+    use_button()
+    use_motion_sensor()
+    use_color_matrix()
+    use_device()
+
+
+# Run loop for sensor checks.
+# The "while true" method allows for a function to stay 'alive' during the running of the program.
+    while True:
+        Button()
+        check_color()
+        Distance()
+        await runloop.sleep_ms(100)
+#________________________________________ End of Main function ________________________________________________
+
+
+
+
+# Run the async main function using runloop
+runloop.run(main)`;
+
+
+// Component for Python
+function PythonTutorialExpandable() {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(pythonStarterCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
 
 
   return (
 
     <div className="max-w-4xl mx-auto space-y-12">
-
-         {/* Image Carousel - Full Width, Top Aligned */}
+      
+      {/* Image Carousel - Full Width, Top Aligned */}
       <div className="relative -mt-12 -mx-4 sm:-mx-6 lg:-mx-8 mb-8">
         <div className="relative h-64 sm:h-80 overflow-hidden shadow-xl">
           {carouselImages.map((image, index) => (
@@ -87,7 +292,7 @@ export function HubNavigation() {
               style={{
                 backgroundImage: `url(${image.src})`,
                 backgroundSize: 'cover',
-                backgroundPosition: 'center',
+                backgroundPosition: image.position || 'center',
               }}
               aria-hidden={index !== currentImageIndex}
             >
@@ -132,24 +337,24 @@ export function HubNavigation() {
         </p>
       </div>
 
+
       <div className="space-y-8">
+        
         {/* Phase 0 Card */}
         <Card className="shadow-lg">
-          <CardHeader className="flex flex-row items-start gap-4 p-6">
+          <CardHeader className="flex flex-row items-center gap-4 p-6">
             <div className="p-3 bg-muted rounded-full">
               <BookOpen className="h-6 w-6 text-primary" />
             </div>
-            <div className="flex justify-between items-center">
-            <div>
-              <CardTitle className="text-xl">Preperation (Instructor Only)</CardTitle>
+            <div className="flex-1">
+              <CardTitle className="text-xl">Preparation (Instructor Only)</CardTitle>
               <CardDescription>Complete these steps before building.</CardDescription>
             </div>
             <img 
               src="/models/lego_teacher.png" 
               alt="Preparation icon" 
-              className="w-25 h-20 rounded object-cover flex-shrink-1 ml-5"
+              className="w-25 h-20 rounded object-cover flex-shrink-0"
             />
-          </div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
             <div className="space-y-4">
@@ -193,148 +398,177 @@ export function HubNavigation() {
           </CardContent>
         </Card>
 
-        {/* Phase 1 Accordion */}
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1" className="border rounded-lg shadow-sm">
-            <AccordionTrigger className="p-6 hover:no-underline">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-muted rounded-full">
+       {/* Phase 1 Accordion */}
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1" className="border rounded-lg shadow-sm">
+              <AccordionTrigger className="p-6 hover:no-underline">
+                <div className="flex items-center gap-4 w-full">
+                  <div className="p-3 bg-muted rounded-full">
                     <ListChecks className="h-6 w-6 text-primary" />
-                </div>
-                <div className="flex justify-between items-center">
-                    <div>
-                      <h2 className="text-xl font-semibold text-left">Phase 1. Build your vehicle</h2>
-                      <p className="text-sm text-muted-foreground text-left">Check your components before you begin.</p>
-                    </div>
-                    <img 
-                      src="/models/Lego_car copy.jpg" 
-                      alt="Vehicle building icon" 
-                      className="w-25 h-20 rounded object-cover flex-shrink-0 ml-4"
-                    />
                   </div>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <Accordion type="single" collapsible className="w-full">
-                {/* Sub-Accordion 1: Inventory */}
-                <AccordionItem value="inventory" className="border-none">
-                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <div className="relative group">
-                        <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
-                          </div>
-                          <div className="w-6 h-6 bg-primary/80 rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                  <div className="flex-1">
+                    <h2 className="text-xl font-semibold text-left">Phase 1. Build Your Vehicle</h2>
+                    <p className="text-sm text-muted-foreground text-left">Check your components before you begin.</p>
+                  </div>
+                  <img 
+                    src="/models/g-image_12315824.png" 
+                    alt="Vehicle building icon" 
+                   className="w-[19%] h-[9%] rounded object-cover flex-shrink-0"
+                  />
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <Accordion type="single" collapsible className="w-full">
+                  {/* Sub-Accordion 1: Inventory */}
+                  <AccordionItem value="inventory" className="border-none">
+                    <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                      <div className="flex items-center gap-3">
+                        <div className="relative group">
+                          <div className="relative h-12 w-8">
+
+
+                            {/* Bottom LEGO brick (stationary) - Yellow */}
+                            <div className="absolute bottom-0 left-0 w-8 h-5 bg-yellow-400 rounded-sm border-2 border-yellow-600">
+                              {/* Bottom brick studs */}
+                              <div className="absolute -top-1 left-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                              <div className="absolute -top-1 right-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                            </div>
+                            
+                            {/* Top LEGO brick (animated) - Red */}
+                            <div className="absolute top-0 left-0 w-8 h-5 bg-red-500 rounded-sm border-2 border-red-700 transition-transform duration-700 ease-in-out group-hover:translate-y-6">
+                              {/* Top brick studs */}
+                              <div className="absolute -top-1 left-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                              <div className="absolute -top-1 right-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                            </div>
+                            
                           </div>
                         </div>
+                        <div>
+                          <h3 className="text-lg font-medium text-left">Inventory</h3>
+                          <p className="text-sm text-muted-foreground text-left">View all components</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-medium text-left">Inventory</h3>
-                        <p className="text-sm text-muted-foreground text-left">View all components</p>
-                      </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <Link 
-                      href="https://assets.education.lego.com/v3/assets/blt293eea581807678a/blt28cad37f1f002fd3/5f8801b982eaa522ca601c89/le_spike_prime_element_overview.pdf?locale=en-us" 
-                      className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="relative">
-                            <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-2">
-                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
-                              </div>
-                              <div className="w-8 h-8 bg-primary/80 rounded flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-2">
-                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-6 pb-4">
+                      <Link 
+                        href="https://assets.education.lego.com/v3/assets/blt293eea581807678a/blt28cad37f1f002fd3/5f8801b982eaa522ca601c89/le_spike_prime_element_overview.pdf?locale=en-us" 
+                        className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="relative">
+                              <div className="relative h-14 w-10">
+
+                                {/* Bottom LEGO brick (stationary) - Blue */}
+                                <div className="absolute bottom-0 left-0 w-10 h-6 bg-pink-400 rounded border-2 border-pink-600">
+                                  {/* Bottom brick studs */}
+                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                </div>
+                                
+                                {/* Top LEGO brick (animated) - Pink */}
+                                <div className="absolute top-0 left-0 w-10 h-6 bg-blue-500 rounded border-2 border-blue-700 transition-transform duration-700 ease-in-out group-hover:translate-y-7">
+                                  {/* Top brick studs */}
+                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div>
-                            <p className="font-medium">Go to Inventory</p>
-                            <p className="text-sm text-muted-foreground">Check all available components</p>
-                          </div>
-                        </div>
-                        <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-                      </div>
-                    </Link>
-                  </AccordionContent>
-                </AccordionItem>
-
-                {/* Sub-Accordion 2: Build */}
-                <AccordionItem value="build" className="border-none">
-                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <div className="relative group">
-                        <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
-                          </div>
-                          <div className="w-6 h-6 bg-primary/80 rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-medium text-left">Build</h3>
-                        <p className="text-sm text-muted-foreground text-left">Start building process</p>
-                      </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <Link 
-                      href="https://assets.education.lego.com/v3/assets/blt293eea581807678a/blte58422fa7d508a60/5f8802b882eaa522ca601c9f/driving-base-bi-pdf-book1of1.pdf?locale=en-us" 
-                      className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="relative">
-                            <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-2">
-                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
-                              </div>
-                              <div className="w-8 h-8 bg-primary/80 rounded flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-2">
-                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
-                              </div>
+                            <div>
+                              <p className="font-medium">Go to Inventory</p>
+                              <p className="text-sm text-muted-foreground">Check all available components</p>
                             </div>
                           </div>
-                          <div>
-                            <p className="font-medium">Go to Build</p>
-                            <p className="text-sm text-muted-foreground">Start your building journey</p>
+                          <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                        </div>
+                      </Link>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  {/* Sub-Accordion 2: Build */}
+                  <AccordionItem value="build" className="border-none">
+                    <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                      <div className="flex items-center gap-3">
+                        <div className="relative group">
+                          <div className="relative h-12 w-8">
+                            {/* Bottom LEGO brick (stationary) - Yellow */}
+                            <div className="absolute bottom-0 left-0 w-8 h-5 bg-yellow-400 rounded-sm border-2 border-yellow-600">
+                              {/* Bottom brick studs */}
+                              <div className="absolute -top-1 left-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                              <div className="absolute -top-1 right-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                            </div>
+                            
+                            {/* Top LEGO brick (animated) - Red */}
+                            <div className="absolute top-0 left-0 w-8 h-5 bg-red-500 rounded-sm border-2 border-red-700 transition-transform duration-700 ease-in-out group-hover:translate-y-6">
+                              {/* Top brick studs */}
+                              <div className="absolute -top-1 left-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                              <div className="absolute -top-1 right-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                            </div>
                           </div>
                         </div>
-                        <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                        <div>
+                          <h3 className="text-lg font-medium text-left">Build</h3>
+                          <p className="text-sm text-muted-foreground text-left">Start building process</p>
+                        </div>
                       </div>
-                    </Link>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-6 pb-4">
+                      <Link 
+                        href="https://assets.education.lego.com/v3/assets/blt293eea581807678a/blte58422fa7d508a60/5f8802b882eaa522ca601c9f/driving-base-bi-pdf-book1of1.pdf?locale=en-us" 
+                        className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="relative">
+                              <div className="relative h-14 w-10">
+                               
+                               {/* Bottom LEGO brick (stationary) - Blue */}
+                               <div className="absolute bottom-0 left-0 w-10 h-6 bg-pink-400 rounded border-2 border-pink-600">
+                                  {/* Bottom brick studs */}
+                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                </div>
+                                
+                                {/* Top LEGO brick (animated) - Pink */}
+                                <div className="absolute top-0 left-0 w-10 h-6 bg-blue-500 rounded border-2 border-blue-700 transition-transform duration-700 ease-in-out group-hover:translate-y-7">
+                                  {/* Top brick studs */}
+                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <p className="font-medium">Go to Build</p>
+                              <p className="text-sm text-muted-foreground">Start your building journey</p>
+                            </div>
+                          </div>
+                          <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                        </div>
+                      </Link>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
 
-        {/* Phase 2 Accordion */}
+    {/* Phase 2 Accordion */}
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="phase2" className="border rounded-lg shadow-sm">
             <AccordionTrigger className="p-6 hover:no-underline">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 w-full">
                 <div className="p-3 bg-muted rounded-full">
-                    <Wrench className="h-6 w-6 text-primary" />
+                  <Code className="h-6 w-6 text-primary" />
                 </div>
-                <div>
-                  <h2 className="text-xl font-semibold text-left">Phase 2. Code and challenges</h2>
-                  <p className="text-sm text-muted-foreground text-left">
-                  The Challenge Ground is an interactive space where students learn how robots work through hands-on design and coding. 
-                  Each challenge introduces a new sensor, blending hardware with logic. 
-                  Students choose Python or Word Blocks, building both coding and robotics skills.
-                  </p>
-                  <p className="text-sm text-muted-foreground text-left mt-2">
-                    <strong>End State:</strong> Students emerge better prepared and more competitive for the main competition.
-                  </p>
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold text-left">Phase 2. Code and Challenges</h2>
+                  <p className="text-sm text-muted-foreground text-left">Learn programming and complete sensor challenges.</p>
                 </div>
+                <img 
+                  src="/models/14418063.png" 
+                  alt="Code and challenges icon" 
+                  className="w-[17%] h-[14%] rounded object-cover flex-shrink-0"
+                />
               </div>
             </AccordionTrigger>
             <AccordionContent>
@@ -344,12 +578,20 @@ export function HubNavigation() {
                   <AccordionTrigger className="px-6 py-4 hover:no-underline">
                     <div className="flex items-center gap-3">
                       <div className="relative group">
-                        <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                        <div className="relative h-12 w-8">
+                          
+                          {/* Bottom LEGO brick (stationary) - Yellow */}
+                          <div className="absolute bottom-0 left-0 w-8 h-5 bg-yellow-400 rounded-sm border-2 border-yellow-600 transition-all duration-700 ease-in-out group-hover:rotate-0">
+                            {/* Bottom brick studs */}
+                            <div className="absolute -top-1 left-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                            <div className="absolute -top-1 right-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
                           </div>
-                          <div className="w-6 h-6 bg-primary/80 rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                          
+                          {/* Top LEGO brick (animated) - Red */}
+                          <div className="absolute top-0 left-0 w-8 h-5 bg-red-500 rounded-sm border-2 border-red-700 transition-all duration-700 ease-in-out group-hover:rotate-0 group-hover:translate-y-6">
+                            {/* Top brick studs */}
+                            <div className="absolute -top-1 left-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                            <div className="absolute -top-1 right-1 w-2 h-2 bg-red-700 rounded-full"></div>
                           </div>
                         </div>
                       </div>
@@ -365,14 +607,23 @@ export function HubNavigation() {
                       className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                     >
                       <div className="flex items-center justify-between">
+
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-2">
-                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
-                              </div>
-                              <div className="w-8 h-8 bg-primary/80 rounded flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-2">
-                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
+                            <div className="relative h-14 w-10">
+                              {/* Bottom LEGO brick (stationary) - Blue */}
+                              <div className="absolute bottom-0 left-0 w-10 h-6 bg-pink-400 rounded border-2 border-pink-600">
+                                  {/* Bottom brick studs */}
+                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                </div>
+                                
+                                {/* Top LEGO brick (animated) - Pink */}
+                                <div className="absolute top-0 left-0 w-10 h-6 bg-blue-500 rounded border-2 border-blue-700 transition-transform duration-700 ease-in-out group-hover:translate-y-7">
+                                  {/* Top brick studs */}
+                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+
                               </div>
                             </div>
                           </div>
@@ -383,6 +634,7 @@ export function HubNavigation() {
                         </div>
                         <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                       </div>
+
                     </Link>
                   </AccordionContent>
                   
@@ -395,12 +647,19 @@ export function HubNavigation() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-2">
-                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
-                              </div>
-                              <div className="w-8 h-8 bg-primary/80 rounded flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-2">
-                                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
+                            <div className="relative h-14 w-10">
+                             {/* Bottom LEGO brick (stationary) - Blue */}
+                                <div className="absolute bottom-0 left-0 w-10 h-6 bg-pink-400 rounded border-2 border-pink-600">
+                                  {/* Bottom brick studs */}
+                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-pink-600 rounded-full"></div>
+                                </div>
+                                
+                                {/* Top LEGO brick (animated) - Pink */}
+                                <div className="absolute top-0 left-0 w-10 h-6 bg-blue-500 rounded border-2 border-blue-700 transition-transform duration-700 ease-in-out group-hover:translate-y-7">
+                                  {/* Top brick studs */}
+                                  <div className="absolute -top-1 left-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
+                                  <div className="absolute -top-1 right-1.5 w-2 h-2 bg-blue-700 rounded-full"></div>
                               </div>
                             </div>
                           </div>
@@ -422,12 +681,19 @@ export function HubNavigation() {
                   <AccordionTrigger className="px-6 py-4 hover:no-underline">
                     <div className="flex items-center gap-3">
                       <div className="relative group">
-                        <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                        <div className="relative h-12 w-8">
+                          {/* Bottom LEGO brick (stationary) - Yellow */}
+                          <div className="absolute bottom-0 left-0 w-8 h-5 bg-yellow-400 rounded-sm border-2 border-yellow-600 transition-all duration-700 ease-in-out group-hover:rotate-0">
+                            {/* Bottom brick studs */}
+                            <div className="absolute -top-1 left-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                            <div className="absolute -top-1 right-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
                           </div>
-                          <div className="w-6 h-6 bg-primary/80 rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                          
+                          {/* Top LEGO brick (animated) - Red */}
+                          <div className="absolute top-0 left-0 w-8 h-5 bg-red-500 rounded-sm border-2 border-red-700 transition-all duration-700 ease-in-out group-hover:rotate-0 group-hover:translate-y-6">
+                            {/* Top brick studs */}
+                            <div className="absolute -top-1 left-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                            <div className="absolute -top-1 right-1 w-2 h-2 bg-red-700 rounded-full"></div>
                           </div>
                         </div>
                       </div>
@@ -478,12 +744,19 @@ export function HubNavigation() {
                   <AccordionTrigger className="px-6 py-4 hover:no-underline">
                     <div className="flex items-center gap-3">
                       <div className="relative group">
-                        <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                        <div className="relative h-12 w-8">
+                          {/* Bottom LEGO brick (stationary) - Yellow */}
+                          <div className="absolute bottom-0 left-0 w-8 h-5 bg-yellow-400 rounded-sm border-2 border-yellow-600 transition-all duration-700 ease-in-out group-hover:rotate-0">
+                            {/* Bottom brick studs */}
+                            <div className="absolute -top-1 left-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                            <div className="absolute -top-1 right-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
                           </div>
-                          <div className="w-6 h-6 bg-primary/80 rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                          
+                          {/* Top LEGO brick (animated) - Red */}
+                          <div className="absolute top-0 left-0 w-8 h-5 bg-red-500 rounded-sm border-2 border-red-700 transition-all duration-700 ease-in-out group-hover:rotate-0 group-hover:translate-y-6">
+                            {/* Top brick studs */}
+                            <div className="absolute -top-1 left-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                            <div className="absolute -top-1 right-1 w-2 h-2 bg-red-700 rounded-full"></div>
                           </div>
                         </div>
                       </div>
@@ -527,17 +800,24 @@ export function HubNavigation() {
                   </AccordionContent>
                 </AccordionItem>
 
-                 {/* Sub-Accordion 4: Challenge 3 */}
+                {/* Sub-Accordion 4: Challenge 3 */}
                 <AccordionItem value="challenge3" className="border-none">
                   <AccordionTrigger className="px-6 py-4 hover:no-underline">
                     <div className="flex items-center gap-3">
                       <div className="relative group">
-                        <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                        <div className="relative h-12 w-8">
+                          {/* Bottom LEGO brick (stationary) - Yellow */}
+                          <div className="absolute bottom-0 left-0 w-8 h-5 bg-yellow-400 rounded-sm border-2 border-yellow-600  transition-all duration-700 ease-in-out group-hover:rotate-0">
+                            {/* Bottom brick studs */}
+                            <div className="absolute -top-1 left-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                            <div className="absolute -top-1 right-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
                           </div>
-                          <div className="w-6 h-6 bg-primary/80 rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                          
+                          {/* Top LEGO brick (animated) - Red */}
+                          <div className="absolute top-0 left-0 w-8 h-5 bg-red-500 rounded-sm border-2 border-red-700 transition-all duration-700 ease-in-out group-hover:rotate-0 group-hover:translate-y-6">
+                            {/* Top brick studs */}
+                            <div className="absolute -top-1 left-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                            <div className="absolute -top-1 right-1 w-2 h-2 bg-red-700 rounded-full"></div>
                           </div>
                         </div>
                       </div>
@@ -581,84 +861,93 @@ export function HubNavigation() {
                   </AccordionContent>
                 </AccordionItem>
 
-                {/* Sub-Accordion 5: Challenge 4 */}
-                <AccordionItem value="challenge4" className="border-none">
-                  <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <div className="relative group">
-                        <div className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-110">
-                          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+               {/* Sub-Accordion 5: Challenge 4 */}
+                  <AccordionItem value="challenge4" className="border-none">
+                    <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                      <div className="flex items-center gap-3">
+                        <div className="relative group">
+                          <div className="relative h-12 w-8">
+                            {/* Bottom LEGO brick (stationary) - Yellow */}
+                            <div className="absolute bottom-0 left-0 w-8 h-5 bg-yellow-400 rounded-sm border-2 border-yellow-600 transition-all duration-700 ease-in-out">
+                              {/* Bottom brick studs */}
+                              <div className="absolute -top-1 left-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                              <div className="absolute -top-1 right-1 w-2 h-2 bg-yellow-600 rounded-full"></div>
+                            </div>
+                            
+                            {/* Top LEGO brick (animated) - Red */}
+                            <div className="absolute top-0 left-0 w-8 h-5 bg-red-500 rounded-sm border-2 border-red-700 transition-all duration-700 ease-in-out group-hover:translate-y-6">
+                              {/* Top brick studs */}
+                              <div className="absolute -top-1 left-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                              <div className="absolute -top-1 right-1 w-2 h-2 bg-red-700 rounded-full"></div>
+                            </div>
                           </div>
-                          <div className="w-6 h-6 bg-primary/80 rounded-sm flex items-center justify-center transform transition-transform duration-300 group-hover:-translate-x-1">
-                            <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-medium text-left">Challenge 4 - Ouch! Did I just hit something?</h3>
+                          <p className="text-sm text-muted-foreground text-left">Force sensor interaction</p>
+                        </div>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-6 pb-4">
+                      <div className="p-4 rounded-lg bg-muted/50 space-y-4">
+                        {/* Main Description */}
+                        <p className="text-sm text-muted-foreground">
+                          This final challenge of the force sensor will enable challengers to gain familiarization when the sensor is "pressed, hard-pressed, released, or pressure has changed". There will be an obstacle for each action as stated above. Challengers will need to read what the obstacle is requiring them to do with their force sensor to be successful.
+                        </p>
+
+                        {/* Difficulty Levels */}
+                        <div className="ml-6 space-y-3">
+                          <div className="flex items-start space-x-3">
+                            <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                            <p className="text-sm text-muted-foreground">
+                              <span className="font-semibold text-foreground">APPRENTICE</span> ~ Navigate 2 Force Sensor Obstacles
+                            </p>
+                          </div>
+                          
+                          <div className="flex items-start space-x-3">
+                            <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                            <p className="text-sm text-muted-foreground">
+                              <span className="font-semibold text-foreground">TECHNICIAN</span> ~ Navigate 3 Force Sensor Obstacles
+                            </p>
+                          </div>
+                          
+                          <div className="flex items-start space-x-3">
+                            <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
+                            <p className="text-sm text-muted-foreground">
+                              <span className="font-semibold text-foreground">MASTER</span> ~ Navigate ALL Force Sensor Obstacles
+                            </p>
                           </div>
                         </div>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-medium text-left">Challenge 4 - Ouch! Did I just hit something?</h3>
-                        <p className="text-sm text-muted-foreground text-left">Force sensor interaction</p>
-                      </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <div className="p-4 rounded-lg bg-muted/50 space-y-4">
-                      {/* Main Description */}
-                      <p className="text-sm text-muted-foreground">
-                        This final challenge of the force sensor will enable challengers to gain familiarization when the sensor is "pressed, hard-pressed, released, or pressure has changed". There will be an obstacle for each action as stated above. Challengers will need to read what the obstacle is requiring them to do with their force sensor to be successful.
-                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
 
-                      {/* Difficulty Levels */}
-                      <div className="ml-6 space-y-3">
-                        <div className="flex items-start space-x-3">
-                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-sm text-muted-foreground">
-                            <span className="font-semibold text-foreground">APPRENTICE</span> ~ Navigate 2 Force Sensor Obstacles
-                          </p>
-                        </div>
-                        
-                        <div className="flex items-start space-x-3">
-                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-sm text-muted-foreground">
-                            <span className="font-semibold text-foreground">TECHNICIAN</span> ~ Navigate 3 Force Sensor Obstacles
-                          </p>
-                        </div>
-                        
-                        <div className="flex items-start space-x-3">
-                          <div className="w-1.5 h-1.5 border border-foreground rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-sm text-muted-foreground">
-                            <span className="font-semibold text-foreground">MASTER</span> ~ Navigate ALL Force Sensor Obstacles
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-
-                {/* You can easily add more challenges here following the same pattern */}
-                
               </Accordion>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
 
-
         {/* Phase 3 Card */}
         <Card className="shadow-lg">
-          <CardHeader className="flex flex-row items-start gap-4 p-6">
-             <div className="p-3 bg-muted rounded-full">
-                <Wrench className="h-6 w-6 text-primary" />
-             </div>
-              <div>
-                <CardTitle className="text-xl">Phase 3. Obstacle course race.</CardTitle>
-                <CardDescription>Follow the interactive guide to build your robot.</CardDescription>
-              </div>
+          <CardHeader className="flex flex-row items-center gap-4 p-6">
+            <div className="p-3 bg-muted rounded-full">
+              <TrendingUpDown className="h-6 w-6 text-primary" />
+            </div>
+            <div className="flex-1">
+              <CardTitle className="text-xl">Phase 3. Obstacle Course Race.</CardTitle>
+              <CardDescription>Follow the interactive guide to build your robot.</CardDescription>
+            </div>
+            <img 
+              src="/models/mage_6720689.png" 
+              alt="Obstacle course race icon" 
+              className="w-[15%] h-[9%] rounded object-cover flex-shrink-0"
+            />
           </CardHeader>
           <CardContent className="p-6 pt-0">
             <p className="mb-4 text-muted-foreground">
               Ready to bring your creation to life? Jump into our step-by-step interactive guide.
             </p>
-            <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button asChild className="bg-yellow-500 text-black hover:bg-yellow-600">
               <Link href="/guide">
                 Go to Build & Code Guide
                 <ArrowRight className="ml-2 h-4 w-4" />
