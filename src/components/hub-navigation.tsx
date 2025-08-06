@@ -11,12 +11,220 @@ import { ListChecks, Wrench, ArrowRight, CheckCircle2, BookOpen, TrendingUpDown,
 import { Copy, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState, useEffect } from 'react'; 
 
+
+// // Component for Python
+// function PythonTutorialExpandable() {
+//   const [isExpanded, setIsExpanded] = useState(false);
+//   const [copied, setCopied] = useState(false);
+
+//   const handleCopy = async () => {
+//     try {
+//       await navigator.clipboard.writeText(pythonStarterCode);
+//       setCopied(true);
+//       setTimeout(() => setCopied(false), 2000);
+//     } catch (err) {
+//       console.error('Failed to copy text: ', err);
+//     }
+//   }
+// };
+
+// //python code shell. 
+// const pythonStarterCode = `# LEGO SPIKE Prime Robot - Python Starter Code
+// import motor
+// import motor_pair
+// from hub import port, sound, light_matrix, light, button, motion_sensor, port
+// import time
+// import runloop
+// import color
+// import color_sensor
+// import force_sensor
+// import distance_sensor
+// import color_matrix
+// import device
+
+
+// # Constants
+// force_threshold = 50
+// speed = 720
+// degrees = 360
+
+
+// # Simplified Movement Function
+// def move_motors(a_speed, b_speed, value):
+//     motor.run(port.A, a_speed)
+//     motor.run(port.B, b_speed)
+//     time.sleep((value * degrees) / speed)
+//     motor.stop(port.A)
+//     motor.stop(port.B)
+
+
+// # Move Forward
+// def move_forward(value):
+//     move_motors(speed, speed, value)
+
+
+// # Move Backward
+// def move_backward(value):
+//     move_motors(-speed, -speed, value)
+
+
+// # Turn Left
+// def turn_left(value):
+//     move_motors(-speed, speed, value)
+
+
+// # Turn Right
+// def turn_right(value):
+//     move_motors(speed, -speed, value)
+
+
+
+
+// # Sensor Handlers
+// #_______ Button Sensor_______________________________
+// def Button():
+//     force = force_sensor.force(port.C)
+//     if force > force_threshold:
+//          # Add your code here:
+//         move_forward(1)
+
+
+//     else:
+//          # Add your code here:
+//         motor.stop(port.A)
+//         motor.stop(port.B)
+
+
+
+
+
+
+// #_______Color Sensor_______________________________
+
+
+// def check_color():
+//     detected_color = color_sensor.color(port.D)
+//     if detected_color == color.RED: # You can change the color or add more colors.
+       
+//          # Add your code here:
+//         move_forward(1)
+
+
+//     else:
+//         # Add your code here:
+//         motor.stop(port.A)
+//         motor.stop(port.B)
+
+
+
+
+// #_______ Distance Sensor_______________________________
+// def Distance(threshold_cm=10):
+//     distance_cm = distance_sensor.distance(port.E)
+//     if distance_cm < threshold_cm:
+//         motor.stop(port.A)
+//         motor.stop(port.B)
+
+
+
+
+// #________________ Dummy functions to use all imports ___________________
+// def use_sound():
+//     sound.beep()
+
+
+// def use_light_matrix():
+//     light_matrix.show_image('HAPPY')
+
+
+// def use_light():
+//     light.on('blue')
+
+
+// def use_button():
+//     if button.pressed():
+//         print("Button pressed!")
+
+
+// def use_motion_sensor():
+//     angle = motion_sensor.tilt_angle()
+//     print(f"Tilt angle: {angle}")
+
+
+// def use_color_matrix():
+//     color_matrix.show([[color.RED]*5]*5)
+
+
+// def use_device():
+//     info = device.info()
+//     print("Device info:", info)
+
+
+// # ______________________________________________________
+
+
+// # _______________________Main Function___________________________________
+// async def main():
+//     motor_pair.pair(1, port.A, port.B)
+
+
+
+
+// # Add your code here:
+
+
+//     #Example:
+//     move_forward(1)
+//     await runloop.sleep_ms(1000) # 'await' tells the robot to wait before doing the next function
+
+
+//     move_backward(1)
+//     await runloop.sleep_ms(1000)
+
+
+//     turn_left(1)
+//     await runloop.sleep_ms(1000)
+
+
+//     turn_right(1)
+//     await runloop.sleep_ms(1000)
+
+
+// # Call dummy usage functions here to make them 'used'
+//     use_sound()
+//     use_light_matrix()
+//     use_light()
+//     use_button()
+//     use_motion_sensor()
+//     use_color_matrix()
+//     use_device()
+
+
+// # Run loop for sensor checks.
+// # The "while true" method allows for a function to stay 'alive' during the running of the program.
+//     while True:
+//         Button()
+//         check_color()
+//         Distance()
+//         await runloop.sleep_ms(100)
+// #________________________________________ End of Main function ________________________________________________
+
+
+
+
+// # Run the async main function using runloop
+// runloop.run(main)`;
+
+
+
+ 
+
 export function HubNavigation() {
   // Zero Phase 0 Dummy checklist items - you'll replace these
   const [checklistItems, setChecklistItems] = useState([
-    { id: 1, text: "Login into CFIC Account in the Laptop [Not a Guess Account]", completed: false },
+    { id: 1, text: "Log into CFIC account on the laptop [not a guest account]", completed: false },
     { id: 2, text: "Ensure all computers are fully charged and updated", completed: false },
-    { id: 3, text: "Ensure LEGO Education SPIKE app is installed", completed: false },
+    { id: 3, text: "Ensure LEGO Education SPIKE app is installed via Microsoft Store", completed: false },
     { id: 4, text: "Ensure all LEGO modules are successfully connected to the Education SPIKE app", completed: false },
   ]);
 
@@ -71,210 +279,6 @@ export function HubNavigation() {
   const totalCount = checklistItems.length;
   const progressPercentage = (completedCount / totalCount) * 100;
   const allCompleted = completedCount === totalCount;
-
-//python code shell. 
-const pythonStarterCode = `# LEGO SPIKE Prime Robot - Python Starter Code
-import motor
-import motor_pair
-from hub import port, sound, light_matrix, light, button, motion_sensor, port
-import time
-import runloop
-import color
-import color_sensor
-import force_sensor
-import distance_sensor
-import color_matrix
-import device
-
-
-# Constants
-force_threshold = 50
-speed = 720
-degrees = 360
-
-
-# Simplified Movement Function
-def move_motors(a_speed, b_speed, value):
-    motor.run(port.A, a_speed)
-    motor.run(port.B, b_speed)
-    time.sleep((value * degrees) / speed)
-    motor.stop(port.A)
-    motor.stop(port.B)
-
-
-# Move Forward
-def move_forward(value):
-    move_motors(speed, speed, value)
-
-
-# Move Backward
-def move_backward(value):
-    move_motors(-speed, -speed, value)
-
-
-# Turn Left
-def turn_left(value):
-    move_motors(-speed, speed, value)
-
-
-# Turn Right
-def turn_right(value):
-    move_motors(speed, -speed, value)
-
-
-
-
-# Sensor Handlers
-#_______ Button Sensor_______________________________
-def Button():
-    force = force_sensor.force(port.C)
-    if force > force_threshold:
-         # Add your code here:
-        move_forward(1)
-
-
-    else:
-         # Add your code here:
-        motor.stop(port.A)
-        motor.stop(port.B)
-
-
-
-
-
-
-#_______Color Sensor_______________________________
-
-
-def check_color():
-    detected_color = color_sensor.color(port.D)
-    if detected_color == color.RED: # You can change the color or add more colors.
-       
-         # Add your code here:
-        move_forward(1)
-
-
-    else:
-        # Add your code here:
-        motor.stop(port.A)
-        motor.stop(port.B)
-
-
-
-
-#_______ Distance Sensor_______________________________
-def Distance(threshold_cm=10):
-    distance_cm = distance_sensor.distance(port.E)
-    if distance_cm < threshold_cm:
-        motor.stop(port.A)
-        motor.stop(port.B)
-
-
-
-
-#________________ Dummy functions to use all imports ___________________
-def use_sound():
-    sound.beep()
-
-
-def use_light_matrix():
-    light_matrix.show_image('HAPPY')
-
-
-def use_light():
-    light.on('blue')
-
-
-def use_button():
-    if button.pressed():
-        print("Button pressed!")
-
-
-def use_motion_sensor():
-    angle = motion_sensor.tilt_angle()
-    print(f"Tilt angle: {angle}")
-
-
-def use_color_matrix():
-    color_matrix.show([[color.RED]*5]*5)
-
-
-def use_device():
-    info = device.info()
-    print("Device info:", info)
-
-
-# ______________________________________________________
-
-
-# _______________________Main Function___________________________________
-async def main():
-    motor_pair.pair(1, port.A, port.B)
-
-
-
-
-# Add your code here:
-
-
-    #Example:
-    move_forward(1)
-    await runloop.sleep_ms(1000) # 'await' tells the robot to wait before doing the next function
-
-
-    move_backward(1)
-    await runloop.sleep_ms(1000)
-
-
-    turn_left(1)
-    await runloop.sleep_ms(1000)
-
-
-    turn_right(1)
-    await runloop.sleep_ms(1000)
-
-
-# Call dummy usage functions here to make them 'used'
-    use_sound()
-    use_light_matrix()
-    use_light()
-    use_button()
-    use_motion_sensor()
-    use_color_matrix()
-    use_device()
-
-
-# Run loop for sensor checks.
-# The "while true" method allows for a function to stay 'alive' during the running of the program.
-    while True:
-        Button()
-        check_color()
-        Distance()
-        await runloop.sleep_ms(100)
-#________________________________________ End of Main function ________________________________________________
-
-
-
-
-# Run the async main function using runloop
-runloop.run(main)`;
-
-
-// Component for Python
-function PythonTutorialExpandable() {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(pythonStarterCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-    }
-  };
-
 
   return (
 
@@ -408,7 +412,7 @@ function PythonTutorialExpandable() {
                   </div>
                   <div className="flex-1">
                     <h2 className="text-xl font-semibold text-left">Phase 1. Build Your Vehicle</h2>
-                    <p className="text-sm text-muted-foreground text-left">Check your components before you begin.</p>
+                    <p className="text-sm text-muted-foreground text-left">Check your inventory before you start building.</p>
                   </div>
                   <img 
                     src="/models/g-image_12315824.png" 
@@ -596,7 +600,7 @@ function PythonTutorialExpandable() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-left">Let's learn to code your robot</h3>
+                        <h3 className="text-lg font-medium text-left">Code your robot</h3>
                         <p className="text-sm text-muted-foreground text-left">Start programming your creation</p>
                       </div>
                     </div>
@@ -641,7 +645,7 @@ function PythonTutorialExpandable() {
 
                   <AccordionContent className="px-6 pb-4">
                     <Link 
-                      href="https://primelessons.org/en/ProgrammingLessons/SP3BlockGuide.pdf" 
+                      href="/models/LEGO Robotics Event Plan.pdf" 
                       className="block p-4 rounded-lg border border-muted bg-card hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                     >
                       <div className="flex items-center justify-between">
@@ -665,12 +669,13 @@ function PythonTutorialExpandable() {
                           </div>
                           <div>
                             <p className="font-medium">Start Coding Tutorial - Python Coding</p>
-                            <p className="text-sm text-muted-foreground">Learn basic python programming concepts for the robot</p>
+                            <p className="text-sm text-muted-foreground">Learn basic Python programming concepts for the robot</p>
                           </div>
                         </div>
                         <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                       </div>
                     </Link>
+
                   </AccordionContent>
 
 
@@ -928,7 +933,7 @@ function PythonTutorialExpandable() {
         </Accordion>
 
         {/* Phase 3 Card */}
-        <Card className="shadow-lg">
+       <Card className="shadow-lg">
           <CardHeader className="flex flex-row items-center gap-4 p-6">
             <div className="p-3 bg-muted rounded-full">
               <TrendingUpDown className="h-6 w-6 text-primary" />
@@ -947,14 +952,16 @@ function PythonTutorialExpandable() {
             <p className="mb-4 text-muted-foreground">
               Ready to bring your creation to life? Jump into our step-by-step interactive guide.
             </p>
-            <Button asChild className="bg-yellow-500 text-black hover:bg-yellow-600">
-              <Link href="/guide">
-                Go to Build & Code Guide
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+            <Link href="/guide">
+              <img
+                src="/models/OC_F_V.2.jpeg"
+                alt="Go to Build & Code Guide"
+                className="w-full h-auto cursor-pointer"
+              />
+            </Link>
           </CardContent>
         </Card>
+
       </div>
     </div>
   );
