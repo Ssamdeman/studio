@@ -3,11 +3,37 @@
 ├── components.json
 ├── docs
 │   └── blueprint.md
+├── firebase.json
 ├── next.config.ts
 ├── next-env.d.ts
+├── out
+│   ├── 404.html
+│   └── index.html
 ├── package.json
 ├── package-lock.json
 ├── postcss.config.mjs
+├── public
+│   └── models
+│       ├── 14418063.png
+│       ├── 9nfqz9rdnd2q-featured.webp
+│       ├── -free.png
+│       ├── g-image_12315824.png
+│       ├── ground.mtl
+│       ├── ground.obj
+│       ├── ircctor-png.png
+│       ├── Lego_car copy.jpg
+│       ├── lego_motorcycle.webp
+│       ├── LEGO Robotics Event Plan.pdf
+│       ├── lego_spike.png
+│       ├── lego_teacher.png
+│       ├── mage_6720689.png
+│       ├── mainImage.png
+│       ├── OC_F_V.2.jpeg
+│       ├── original.png
+│       ├── p-1-90328175-lego-spike.jpg
+│       ├── spikeprime.jpg
+│       ├── vehicle.mtl
+│       └── vehicle.obj
 ├── README.md
 ├── src
 │   ├── ai
@@ -21,7 +47,11 @@
 │   │   ├── hub
 │   │   │   └── page.tsx
 │   │   ├── layout.tsx
-│   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   └── phase3
+│   │       ├── page.tsx
+│   │       └── simulator
+│   │           └── page.tsx
 │   ├── components
 │   │   ├── build-guide.tsx
 │   │   ├── code-guide.tsx
@@ -73,10 +103,10 @@
 │       ├── build-data.ts
 │       ├── types.ts
 │       └── utils.ts
+├── structure.text
 ├── structure.txt
 ├── tailwind.config.ts
 └── tsconfig.json
 
-11 directories, 67 files
-
+16 directories, 93 files
 tree is not installed, but available in the following packages, pick one to run it, Ctrl+C to cancel.

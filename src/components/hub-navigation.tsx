@@ -1064,7 +1064,7 @@ export function HubNavigation() {
                   <TrendingUpDown className="h-6 w-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-left">Phase 3. Obstacle Course Race.</h2>
+                  <h2 className="text-xl font-semibold text-left">Phase 3. Obstacle Course Race</h2>
                   <p className="text-sm text-muted-foreground text-left">Follow the interactive guide to build your robot.</p>
                 </div>
                 <img 
@@ -1096,7 +1096,7 @@ export function HubNavigation() {
               <Trophy className="h-6 w-6 text-primary" />
             </div>
             <div className="flex-1">
-              <CardTitle className="text-xl">Phase 4. Awards and Celebration.</CardTitle>
+              <CardTitle className="text-xl">Phase 4. Awards and Celebration</CardTitle>
               <CardDescription>Celebrate your achievements and showcase your robot.</CardDescription>
             </div>
             <img 

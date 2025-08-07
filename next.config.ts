@@ -1,7 +1,10 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output: 'export',
+  trailingSlash: true,
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -9,6 +12,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -21,3 +25,58 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import type {NextConfig} from 'next';
+
+// const nextConfig: NextConfig = {
+//   /* config options here */
+//   typescript: {
+//     ignoreBuildErrors: true,
+//   },
+//   eslint: {
+//     ignoreDuringBuilds: true,
+//   },
+//   images: {
+//     remotePatterns: [
+//       {
+//         protocol: 'https',
+//         hostname: 'placehold.co',
+//         port: '',
+//         pathname: '/**',
+//       },
+//     ],
+//   },
+// };
+
+// export default nextConfig;
